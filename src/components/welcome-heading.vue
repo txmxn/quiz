@@ -1,20 +1,20 @@
 <template>
     <div>
-        <ul id="header" >
-          <li class="header-elements">ABBRECHEN</li>
-          <li class="header-elements">HILFE</li>
+        <ul id="welcome-header" >
+          <li class="welcome-header-elements">START</li>
+          <li class="welcome-header-elements">HILFE</li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'heading',
+  name: 'welcome-headings',
 }
 </script>
 
 <style>
-#header {
+#welcome-header {
   margin: 0;
   text-align: center;
   background-color: blueviolet;
@@ -24,7 +24,7 @@ export default {
   font-size: x-large;
 }
 
-.header-elements {
+.welcome-header-elements {
   margin: 0%;
   height: 100%;
   padding: 5px 5px 5px 5px;

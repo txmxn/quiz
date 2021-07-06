@@ -1,17 +1,21 @@
 <template>
   <div id="app">
-    <Heading />
-    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length"/>
-    <Finish v-else />
+    <WelcomeHeading />
+    <!--<Heading /> -->
+    <WelcomeBody />
+    <!--<Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length"/>
+    <Finish v-else /> -->
     <Score :score="score"/>
     <FootBar />
   </div> 
 </template>
 
 <script>
-import Heading from "@/components/heading.vue"
-import Question from "@/components/question.vue"
-import Finish from "@/components/finish.vue"
+import WelcomeHeading from "@/components/welcome-heading.vue"
+//import Heading from "@/components/heading.vue"
+import WelcomeBody from "@/components/welcome-body.vue"
+//import Question from "@/components/question.vue"
+//import Finish from "@/components/finish.vue"
 import Score from "@/components/score.vue"
 import FootBar from "@/components/footbar.vue"
 import database from "@/database.js"
@@ -19,10 +23,12 @@ import database from "@/database.js"
 export default {
   name: 'App',
   components: {
-    Heading,
-    Question,
+    WelcomeHeading,
+    //Heading,
+    WelcomeBody,
+    //Question,
     Score,
-    Finish,
+    //Finish,
     FootBar
   },
   data() {
