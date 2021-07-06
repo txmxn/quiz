@@ -11,5 +11,8 @@ export default {
 </script>
 
 <style>
-
+#finish {
+    text-align: center;
+    font-size: xx-large;
+}
 </style>

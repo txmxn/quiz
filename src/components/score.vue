@@ -10,5 +10,8 @@ export default {
 </script>
 
 <style>
-
+.score {
+    text-align: center;
+    font-size: x-large;
+}
 </style>
