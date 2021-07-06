@@ -1,19 +1,35 @@
 <template>
     <div id="body-part">
-      <div id="question">Warum ist die Banane krum?</div>
+      <div id="question">{{ database.question }}</div>
     
       <div class="answers">
-        <div class="answer">A. Darum</div>
-        <div class="answer">B. Weilich sie verbogen habe</div>
-        <div class="answer">C. Ich bin mir nicht sicher, aber ich will hier mal raten: Keine Ahnung.</div>
-        <div class="answer">D. Antwort4</div>
+        <div class="answer" v-for="(answer, index) in database.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
+
+      <div class="result">{{ check }}</div>
     </div>
 </template>
 
 <script>
 export default {
   name: 'body',
+  props: ["database"],
+  data() {
+    return {
+      labels: ["A:", "B:", "C:", "D:", "E:", "F:"],
+      check: "Bitte Antwort wählen",
+    }
+  },
+  methods: {
+    checkAnswer(index) {
+      if (index == this.database.right) {
+        this.check = "Right answer";
+      }
+      else {
+        this.check = "Wrong answer";
+      }
+    }
+  }
 }
 </script>
 
@@ -33,6 +49,7 @@ export default {
 .answers {
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .answer {
