@@ -1,9 +1,9 @@
 <template>
     <div id="body-part">
-      <div id="question">{{ database.question }}</div>
+      <div id="question">{{ randomizedData.question }}</div>
     
       <div class="answers">
-        <div class="answer" v-for="(answer, index) in database.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
+        <div class="answer" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
 
       <div class="result">{{ check }}</div>
@@ -11,18 +11,35 @@
 </template>
 
 <script>
+function shuffle(database) {
+    for (let i = database.answers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [database.answers[i], database.answers[j]] = [database.answers[j], database.answers[i]];
+        if (database.right == j) {
+          database.right = i;
+        }
+    }
+    return database;
+}
+
 export default {
   name: 'body',
   props: ["database"],
   data() {
     return {
-      labels: ["A:", "B:", "C:", "D:", "E:", "F:"],
+      labels: ["A:", "B:", "C:", "D:",],
       check: "Bitte Antwort wählen",
     }
   },
+  computed: {
+    randomizedData() {
+      const result = shuffle(this.database);
+      return result;
+    },
+  },
   methods: {
     checkAnswer(index) {
-      if (index == this.database.right) {
+      if (index == this.randomizedData.right) {
         this.check = "Right answer";
       }
       else {
