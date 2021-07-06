@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Heading />
-    <Question :element="database[current]" @correct="correctAnswer"/>
+    <Question :element="database[current]" @correct="correctAnswer" v-if="alreadyAsked.length < database.length"/>
+    <Finish v-else />
     <div class="score">Score: {{ score }}</div>
     <FootBar />
   </div> 
@@ -10,6 +11,7 @@
 <script>
 import Heading from "@/components/heading.vue"
 import Question from "@/components/question.vue"
+import Finish from "@/components/finish.vue"
 import FootBar from "@/components/footbar.vue"
 
 export default {
@@ -17,6 +19,7 @@ export default {
   components: {
     Heading,
     Question,
+    Finish,
     FootBar
   },
   data() {
