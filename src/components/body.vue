@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 function shuffle(database) {
     for (let i = database.answers.length -1 ; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -43,7 +44,7 @@ export default {
   methods: {
     checkAnswer(index) {
       this.checked.push(index);
-      console.log(this.database.answers.length)
+      console.log(this.database.length)
       if (index == this.randomizedData.right) {
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);

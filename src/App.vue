@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <Body :database="database[current]" @correct="correctAnswer"/>
+    <Body :element="database[current]" @correct="correctAnswer"/>
     <div class="score">Score: {{ score }}</div>
     <Footer />
   </div> 
