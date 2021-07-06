@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <Header />
-    <Body :element="database[current]" @correct="correctAnswer"/>
+    <Heading />
+    <Question :element="database[current]" @correct="correctAnswer"/>
     <div class="score">Score: {{ score }}</div>
-    <Footer />
+    <FootBar />
   </div> 
 </template>
 
 <script>
-import Header from "@/components/header.vue"
-import Body from "@/components/body.vue"
-import Footer from "@/components/footer.vue"
+import Heading from "@/components/heading.vue"
+import Question from "@/components/question.vue"
+import FootBar from "@/components/footbar.vue"
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Body,
-    Footer
+    Heading,
+    Question,
+    FootBar
   },
   data() {
     return {
@@ -74,16 +74,24 @@ export default {
       },
       ],
       current: 0,
+      alreadyAsked: [],
       score: 0,
     }
   },
   created() {
     this.current = Math.floor(Math.random() * this.database.length);
+    this.alreadyAsked.push(this.current);
   },
   methods: {
     correctAnswer(points) {
       this.score += points;
+      if (this.alreadyAsked.length < this.database.length) {
       this.current = Math.floor(Math.random() * this.database.length);
+      while (this.alreadyAsked.includes(this.current)) {
+        this.current = Math.floor(Math.random() * this.database.length);
+      }
+      this.alreadyAsked.push(this.current);      
+      }
     }
   },
 }

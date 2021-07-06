@@ -15,7 +15,7 @@
 import shuffle from "@/shuffle.js"
 
 export default {
-  name: 'body',
+  name: 'question',
   props: ["element"],
   data() {
     return {
