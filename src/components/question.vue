@@ -6,7 +6,8 @@
         <div class="answer" :class="{'wrong': checked.includes(index)}" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
 
-      <div class="result">{{ check }}. Aktuelle erreichbare Punkte: {{ point }}</div>
+      <div class="result">{{ check }}. Erreichbare Punkte: {{ point }}</div>
+      <div class="questionCounter">Frage {{ questionNumber }}/{{ allQuestions }}</div>
 
     </div>
 </template>
@@ -16,7 +17,7 @@ import shuffle from "@/shuffle.js"
 
 export default {
   name: 'question',
-  props: ["element"],
+  props: ["element", "questionNumber", "allQuestions"],
   data() {
     return {
       labels: ["A:", "B:", "C:", "D:",],
