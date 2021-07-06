@@ -40,7 +40,8 @@ export default {
   methods: {
     checkAnswer(index) {
       if (index == this.randomizedData.right) {
-        this.check = "Right answer";
+        this.check = "Bitte Antwort wählen";
+        this.$emit("correct", 3);
       }
       else {
         this.check = "Wrong answer";

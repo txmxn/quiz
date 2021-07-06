@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <Body :database="database[current]"/>
+    <Body :database="database[current]" @correct="correctAnswer"/>
     <Footer />
 
   </div> 
@@ -72,15 +72,19 @@ export default {
         answers: ["200°", "346°", "789°", "460°"],
         right: 3,
       },
-      ]
-      
+      ],
+      current: 0,
     }
   },
-  computed: {
-    current() {
-      return  Math.floor(Math.random() * this.database.length);
+  created() {
+    this.current = Math.floor(Math.random() * this.database.length);
+  },
+  methods: {
+    correctAnswer(points) {
+      console.log(points);
+      this.current = Math.floor(Math.random() * this.database.length);
     }
-  }
+  },
 }
 </script>
 
