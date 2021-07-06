@@ -3,11 +3,10 @@
       <div id="question">{{ randomizedData.question }}</div>
     
       <div class="answers">
-        <div class="answer" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
+        <div class="answer" :class="{'wrong': checked.includes(index)}" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
 
       <div class="result">{{ check }}. Aktuelle erreichbare Punkte: {{ point }}</div>
-
 
     </div>
 </template>
@@ -32,6 +31,7 @@ export default {
       labels: ["A:", "B:", "C:", "D:",],
       check: "Bitte Antwort wählen",
       point: 3,
+      checked: [],
     }
   },
   computed: {
@@ -42,11 +42,13 @@ export default {
   },
   methods: {
     checkAnswer(index) {
+      this.checked.push(index);
       console.log(this.database.answers.length)
       if (index == this.randomizedData.right) {
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);
         this.point = 3;
+        this.checked = [];
       }
       else {
         this.check = "Wrong answer";
@@ -89,4 +91,8 @@ export default {
   flex: 50%;
   margin-bottom: 10px;
 }
+.answers > div.wrong {
+  background-color: red;
+}
+
 </style>
