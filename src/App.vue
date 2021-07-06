@@ -2,8 +2,8 @@
   <div id="app">
     <Header />
     <Body :database="database[current]" @correct="correctAnswer"/>
+    <div class="score">Score: {{ score }}</div>
     <Footer />
-
   </div> 
 </template>
 
@@ -74,6 +74,7 @@ export default {
       },
       ],
       current: 0,
+      score: 0,
     }
   },
   created() {
@@ -81,7 +82,7 @@ export default {
   },
   methods: {
     correctAnswer(points) {
-      console.log(points);
+      this.score += points;
       this.current = Math.floor(Math.random() * this.database.length);
     }
   },

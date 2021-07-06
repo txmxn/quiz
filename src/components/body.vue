@@ -6,13 +6,15 @@
         <div class="answer" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
 
-      <div class="result">{{ check }}</div>
+      <div class="result">{{ check }}. Aktuelle erreichbare Punkte: {{ point }}</div>
+
+
     </div>
 </template>
 
 <script>
 function shuffle(database) {
-    for (let i = database.answers.length - 1; i > 0; i--) {
+    for (let i = database.answers.length -1 ; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [database.answers[i], database.answers[j]] = [database.answers[j], database.answers[i]];
         if (database.right == j) {
@@ -29,6 +31,7 @@ export default {
     return {
       labels: ["A:", "B:", "C:", "D:",],
       check: "Bitte Antwort wählen",
+      point: 3,
     }
   },
   computed: {
@@ -39,12 +42,18 @@ export default {
   },
   methods: {
     checkAnswer(index) {
+      console.log(this.database.answers.length)
       if (index == this.randomizedData.right) {
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", 3);
+        this.$emit("correct", this.point);
+        this.point = 3;
       }
       else {
         this.check = "Wrong answer";
+        
+        if (this.point > 0) {
+          this.point -= 1;
+        }
       }
     }
   }
