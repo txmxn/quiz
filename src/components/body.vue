@@ -12,21 +12,11 @@
 </template>
 
 <script>
-
-function shuffle(database) {
-    for (let i = database.answers.length -1 ; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [database.answers[i], database.answers[j]] = [database.answers[j], database.answers[i]];
-        if (database.right == j) {
-          database.right = i;
-        }
-    }
-    return database;
-}
+import shuffle from "@/shuffle.js"
 
 export default {
   name: 'body',
-  props: ["database"],
+  props: ["element"],
   data() {
     return {
       labels: ["A:", "B:", "C:", "D:",],
@@ -37,14 +27,13 @@ export default {
   },
   computed: {
     randomizedData() {
-      const result = shuffle(this.database);
+      const result = shuffle(JSON.parse(JSON.stringify(this.element)));
       return result;
     },
   },
   methods: {
     checkAnswer(index) {
       this.checked.push(index);
-      console.log(this.database.length)
       if (index == this.randomizedData.right) {
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);
