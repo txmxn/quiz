@@ -57,7 +57,7 @@ export default {
 #body-part {
   margin: 100px auto 20px auto;
   width: 800px;
-  height: 400px;
+  padding-bottom: 25px;
   background-color: blueviolet;
 }
 
@@ -74,7 +74,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   cursor: pointer;
   padding: 40px;
 }
@@ -85,10 +85,11 @@ export default {
   border-style: solid;
   background-color: honeydew;
   text-align: left;
+  padding: 2px;
 }
 
 .answers > div {
-  flex: 49%;
+  flex: 47% 0 1;
   margin-bottom: 10px;
 }
 .answers > div.wrong {

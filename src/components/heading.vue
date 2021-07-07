@@ -40,6 +40,7 @@ export default {
   margin: 0%;
   height: 100%;
   border-style: none;
+  cursor: initial;
 }
 
 ul, li {

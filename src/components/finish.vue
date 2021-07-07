@@ -12,7 +12,8 @@ export default {
 
 <style>
 #finish {
-    text-align: center;
-    font-size: xx-large;
+  margin-top: 15%;
+  text-align: center;
+  font-size: 100px;
 }
 </style>
