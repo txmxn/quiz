@@ -1,7 +1,8 @@
 <template>
     <div>
         <ul id="header" >
-          <li class="header-elements">ABBRECHEN</li>
+          <li class="header-elements" v-if="state == 'WELCOME'" @click="$emit('started')">START</li>
+          <li class="header-elements" v-else @click="$emit('aborted')">ABBRECHEN</li>
           <li class="header-elements">HILFE</li>
         </ul>
     </div>
@@ -10,6 +11,7 @@
 <script>
 export default {
   name: 'heading',
+  props: ['state'],
 }
 </script>
 
@@ -28,6 +30,7 @@ export default {
   margin: 0%;
   height: 100%;
   padding: 5px 5px 5px 5px;
+  cursor: pointer;
 }
 
 ul, li {

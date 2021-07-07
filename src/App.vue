@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <WelcomeHeading />
-    <!--<Heading /> -->
-    <WelcomeBody />
-    <!--<Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length"/>
-    <Finish v-else /> -->
+    <Heading @started="state = 'STARTED'" @aborted="state = 'WELCOME', score = 0" :state="state"/>
+    <WelcomeBody v-if="state == 'WELCOME'"/>
+    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
+    <Finish v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
     <Score :score="score"/>
     <FootBar />
   </div> 
 </template>
 
 <script>
-import WelcomeHeading from "@/components/welcome-heading.vue"
-//import Heading from "@/components/heading.vue"
+import Heading from "@/components/heading.vue"
 import WelcomeBody from "@/components/welcome-body.vue"
-//import Question from "@/components/question.vue"
-//import Finish from "@/components/finish.vue"
+import Question from "@/components/question.vue"
+import Finish from "@/components/finish.vue"
 import Score from "@/components/score.vue"
 import FootBar from "@/components/footbar.vue"
 import database from "@/database.js"
@@ -23,16 +21,16 @@ import database from "@/database.js"
 export default {
   name: 'App',
   components: {
-    WelcomeHeading,
-    //Heading,
+    Heading,
     WelcomeBody,
-    //Question,
+    Question,
     Score,
-    //Finish,
+    Finish,
     FootBar
   },
   data() {
     return {
+      state: "WELCOME",
       database: database,
       current: 0,
       alreadyAsked: [],
@@ -47,11 +45,14 @@ export default {
     correctAnswer(points) {
       this.score += points;
       if (this.alreadyAsked.length < this.database.length) {
-      this.current = Math.floor(Math.random() * this.database.length);
-      while (this.alreadyAsked.includes(this.current)) {
         this.current = Math.floor(Math.random() * this.database.length);
+        while (this.alreadyAsked.includes(this.current)) {
+          this.current = Math.floor(Math.random() * this.database.length);
+        }
+      this.alreadyAsked.push(this.current);     
       }
-      this.alreadyAsked.push(this.current);      
+      else {
+        this.alreadyAsked = []; 
       }
     }
   },
