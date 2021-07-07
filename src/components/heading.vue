@@ -2,8 +2,9 @@
     <div>
         <ul id="header" >
           <li class="header-elements" v-if="state == 'WELCOME'" @click="$emit('started')">START</li>
-          <li class="header-elements" v-else @click="$emit('aborted')">ABBRECHEN</li>
-          <li class="header-elements">HILFE</li>
+          <li class="header-elements" v-else @click="$emit('aborted')">ZURÜCK</li>
+          <li class="header-elements logo"><img src="@/assets/icon.svg" width="35px"></li>
+          <li class="header-elements" @click="$emit('help')">HILFE</li>
         </ul>
     </div>
 </template>
@@ -18,6 +19,7 @@ export default {
 <style>
 #header {
   margin: 0;
+  padding: 10px;
   text-align: center;
   background-color: blueviolet;
   display: flex;
@@ -29,8 +31,15 @@ export default {
 .header-elements {
   margin: 0%;
   height: 100%;
-  padding: 5px 5px 5px 5px;
+  padding: 10px;
+  border-style: solid;
   cursor: pointer;
+}
+
+.header-elements.logo {
+  margin: 0%;
+  height: 100%;
+  border-style: none;
 }
 
 ul, li {

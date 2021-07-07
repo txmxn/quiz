@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <Heading @started="state = 'STARTED'" @aborted="state = 'WELCOME', score = 0" :state="state"/>
+    <Heading @started="state = 'STARTED', alreadyAsked = []" @aborted="state = 'WELCOME', score = 0" @help="state = 'help'" :state="state"/>
     <WelcomeBody v-if="state == 'WELCOME'"/>
+    <Help v-if="state == 'help'"/>
     <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
     <Finish v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
-    <Score :score="score"/>
+    <Score :score="score" v-if="state == 'STARTED'"/>
     <FootBar />
   </div> 
 </template>
 
 <script>
 import Heading from "@/components/heading.vue"
+import Help from "@/components/help.vue"
 import WelcomeBody from "@/components/welcome-body.vue"
 import Question from "@/components/question.vue"
 import Finish from "@/components/finish.vue"
@@ -22,6 +24,7 @@ export default {
   name: 'App',
   components: {
     Heading,
+    Help,
     WelcomeBody,
     Question,
     Score,
@@ -51,9 +54,7 @@ export default {
         }
       this.alreadyAsked.push(this.current);     
       }
-      else {
-        this.alreadyAsked = []; 
-      }
+      
     }
   },
 }
@@ -62,13 +63,12 @@ export default {
 <style>
 body {
   margin: 0;
-  padding: 0;  
+  padding: 0;
+  background-color: khaki;  
 }
 
 #app {
   margin: 0%;
-  padding: 0%;
-  background-color: khaki;
   display: grid;
   grid-template-rows: 50px auto 50px;
 }

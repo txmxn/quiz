@@ -1,7 +1,8 @@
 <template>
     <div id="footer">
-      <p>Footer goes here</p>
+      <p>Quiz by Timon</p>
     </div>
+      
 </template>
 
 <script>
@@ -12,9 +13,15 @@ export default {
 
 <style>
 #footer {
-  margin: auto;
-  padding: auto 20px auto 20px;
-  background-color: grey;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  
+  background-color: rgb(200, 199, 199);
   text-align: center;
 }
 </style>

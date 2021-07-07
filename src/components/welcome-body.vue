@@ -1,5 +1,8 @@
 <template>
-    <div id="welcome-body">Willkommen beim Quiz!</div>
+    <div id="welcome-body">
+      <h1>Willkommen im Quiz!</h1>
+      <img src="@/assets/timons-quiz.svg" width="500">
+  </div>
 </template>
 
 <script>
@@ -10,8 +13,7 @@ export default {
 
 <style>
 #welcome-body {
-    font-size: xx-large;
+    font-size: 100px;
     text-align: center;
-    margin-bottom: 20px;
 }
 </style>

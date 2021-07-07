@@ -55,8 +55,9 @@ export default {
 
 <style>
 #body-part {
-  margin: 20px auto 20px auto;
+  margin: 100px auto 20px auto;
   width: 800px;
+  height: 400px;
   background-color: blueviolet;
 }
 
@@ -65,25 +66,38 @@ export default {
   margin: 10px auto 10px auto;
   text-align: center;
   border-style: solid;
+  padding: 20px;
+  margin: 20px;
+  font-size: xx-large;
 }
 .answers {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
   cursor: pointer;
+  padding: 40px;
 }
 
 .answer {
-  width: 100%;
+  font-size: x-large;
+  width: 50px;
+  border-style: solid;
   background-color: honeydew;
   text-align: left;
 }
 
 .answers > div {
-  flex: 50%;
+  flex: 49%;
   margin-bottom: 10px;
 }
 .answers > div.wrong {
   background-color: red;
+}
+
+.result, .questionCounter {
+  padding-left: 40px;
+  font-size: x-large;
 }
 
 </style>
