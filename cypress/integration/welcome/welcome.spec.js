@@ -31,4 +31,11 @@ describe('Tests der Welcome-Seite', () => {
     cy.get('[id=welcome-body]');
   })
 
+  it('Starten und Abbrechen des Quiz', () => {
+    cy.get('[class=header-elements]').contains("START").click();
+    cy.get('[id=body-part]');
+    cy.get('[class=header-elements]').contains("ZURÜCK").click();
+    cy.get('[id=welcome-body]');
+  })
+
 })
