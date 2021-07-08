@@ -7,7 +7,7 @@
       </div>
 
       <div class="result">{{ check }}. Erreichbare Punkte: {{ point }}</div>
-      <div class="questionCounter">Frage {{ questionNumber }}/{{ allQuestions }}</div>
+      <div class="questionCounter">Frage {{ questionNumber + 1 }}/{{ allQuestions }}</div>
 
     </div>
 </template>
