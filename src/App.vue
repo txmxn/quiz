@@ -4,7 +4,7 @@
     <WelcomeBody v-if="state == 'WELCOME'"/>
     <Help v-if="state == 'help'"/>
     <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
-    <Finish v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
+    <Finish :score="score" :allQuestions=database.length v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
     <Score :score="score" v-if="state == 'STARTED'"/>
     <FootBar />
   </div> 
