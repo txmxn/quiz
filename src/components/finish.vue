@@ -16,6 +16,6 @@ export default {
 .finish {
   margin-top: 15%;
   text-align: center;
-  font-size: 100px;
+  font-size: 60px;
 }
 </style>

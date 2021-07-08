@@ -13,7 +13,7 @@ export default {
 
 <style>
 #welcome-body {
-    font-size: 100px;
+    font-size: 60px;
     text-align: center;
 }
 </style>
