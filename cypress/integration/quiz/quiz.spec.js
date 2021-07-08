@@ -61,4 +61,23 @@ describe('Tests der Quiz-Logik', () => {
       });
   })
 
+  it('Klicke die Fragen durch plus eine falsche', () => {
+    cy.get('[class=header-elements]').contains("START").click();
+    cy.get('[id=body-part]');
+
+      cy.get('[id=question]').invoke('text').then(text => {
+        const current = database.find(item => {
+          return item.question == text
+        });
+        const right = current.answers[current.right];
+        const wrong = current.answers[(current.right + 1) % current.answers.length];
+        var score = 3;
+        cy.get('[class=answer]').contains(wrong).click();
+        score -= 1;
+        cy.get('[class=answer]').contains(right).click();
+
+        cy.get('[class=score]').contains("Score: " + score);
+      });
+  })
+
 })

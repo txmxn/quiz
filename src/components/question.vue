@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     checkAnswer(index) {
-      this.checked.push(index);
       if (index == this.randomizedData.right) {
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);
@@ -42,9 +41,10 @@ export default {
         this.checked = [];
       }
       else {
-        this.check = "Wrong answer";
+        this.check = "Falsche Antwort";
         
-        if (this.point > 0) {
+        if (this.point > 0 && !this.checked.includes(index)) {
+          this.checked.push(index);
           this.point -= 1;
         }
       }
@@ -94,6 +94,7 @@ export default {
 }
 .answers > div.wrong {
   background-color: red;
+  cursor: default;
 }
 
 .result, .questionCounter {
