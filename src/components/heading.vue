@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul id="header" >
-          <li class="header-elements" v-if="state == 'WELCOME'" @click="$emit('started')">START</li>
+          <li class="header-elements" v-if="state == states.WELCOME" @click="$emit('started')">START</li>
           <li class="header-elements" v-else @click="$emit('aborted')">ZURÜCK</li>
           <li class="header-elements logo"><img src="@/assets/icon.svg" width="35px"></li>
           <li class="header-elements" @click="$emit('help')">HILFE</li>
@@ -10,9 +10,16 @@
 </template>
 
 <script>
+import { State } from "@/utils.js";
+
 export default {
   name: 'heading',
   props: ['state'],
+  data() {
+    return {
+      states: State,
+    }
+  },
 }
 </script>
 

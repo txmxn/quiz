@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Heading @started="started()" @aborted="state = 'WELCOME'" @help="state = 'HELP'" :state="state"/>
-    <WelcomeBody v-if="state == 'WELCOME'"/>
-    <Help v-if="state == 'HELP'"/>
-    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
-    <Finish :score="score" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
-    <Score :score="score" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
+    <Heading @started="started()" @aborted="state = states.WELCOME" @help="state = states.HELP" :state="state"/>
+    <WelcomeBody v-if="state == states.WELCOME"/>
+    <Help v-if="state == states.HELP"/>
+    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
+    <Finish :score="score" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
+    <Score :score="score" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
     <FootBar />
   </div> 
 </template>
@@ -18,7 +18,8 @@ import Question from "@/components/question.vue"
 import Finish from "@/components/finish.vue"
 import Score from "@/components/score.vue"
 import FootBar from "@/components/footbar.vue"
-import database from "@/database.js"
+import database from "@/database.js";
+import { State } from "@/utils.js";
 
 export default {
   name: 'App',
@@ -33,7 +34,8 @@ export default {
   },
   data() {
     return {
-      state: "WELCOME",
+      state: State.WELCOME,
+      states: State, 
       database: database,
       current: 0,
       alreadyAsked: [],
@@ -54,14 +56,12 @@ export default {
         }
       }    
     },
-
     started() {
-      this.state = 'STARTED';
+      this.state = State.STARTED;
       this.alreadyAsked = [];
       this.current = Math.floor(Math.random() * this.database.length);
       this.score = 0;
     }
-
   },
 }
 </script>
