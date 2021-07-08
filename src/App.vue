@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Heading @started="state = 'STARTED', alreadyAsked = []" @aborted="state = 'WELCOME', score = 0" @help="state = 'help'" :state="state"/>
+    <Heading @started="started()" @aborted="state = 'WELCOME'" @help="state = 'HELP'" :state="state"/>
     <WelcomeBody v-if="state == 'WELCOME'"/>
-    <Help v-if="state == 'help'"/>
+    <Help v-if="state == 'HELP'"/>
     <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == 'STARTED'"/>
-    <Finish :score="score" :allQuestions=database.length v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
+    <Finish :score="score" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == 'STARTED'"/>
     <Score :score="score" v-if="state == 'STARTED'"/>
     <FootBar />
   </div> 
@@ -41,21 +41,27 @@ export default {
     }
   },
   created() {
-    this.current = Math.floor(Math.random() * this.database.length);
-    this.alreadyAsked.push(this.current);
+ //   this.started();
   },
   methods: {
     correctAnswer(points) {
       this.score += points;
+      this.alreadyAsked.push(this.current);      
       if (this.alreadyAsked.length < this.database.length) {
         this.current = Math.floor(Math.random() * this.database.length);
         while (this.alreadyAsked.includes(this.current)) {
           this.current = Math.floor(Math.random() * this.database.length);
         }
-      this.alreadyAsked.push(this.current);     
-      }
-      
+      }    
+    },
+
+    started() {
+      this.state = 'STARTED';
+      this.alreadyAsked = [];
+      this.current = Math.floor(Math.random() * this.database.length);
+      this.score = 0;
     }
+
   },
 }
 </script>
