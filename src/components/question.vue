@@ -1,9 +1,9 @@
 <template>
     <div id="body-part">
-      <div id="question">{{ randomizedData.question }}</div>
+      <div id="question">{{ element.question }}</div>
     
       <div class="answers">
-        <div class="answer" :class="{'wrong': checked.includes(index)}" v-for="(answer, index) in randomizedData.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
+        <div class="answer" :class="{'wrong': checked.includes(index)}" v-for="(answer, index) in element.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
       </div>
 
       <div class="result">{{ check }}. Erreichbare Punkte: {{ point }}</div>
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import shuffle from "@/shuffle.js"
-
 export default {
   name: 'question',
   props: ["element", "questionNumber", "allQuestions"],
@@ -26,15 +24,9 @@ export default {
       checked: [],
     }
   },
-  computed: {
-    randomizedData() {
-      const result = shuffle(JSON.parse(JSON.stringify(this.element)));
-      return result;
-    },
-  },
   methods: {
     checkAnswer(index) {
-      if (index == this.randomizedData.right) {
+      if (index == this.element.right) {
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);
         this.point = 3;

@@ -53,16 +53,13 @@ export default {
       this.score += points;
       this.alreadyAsked.push(this.current);      
       if (this.alreadyAsked.length < this.database.length) {
-        this.current = Math.floor(Math.random() * this.database.length);
-        while (this.alreadyAsked.includes(this.current)) {
-          this.current = Math.floor(Math.random() * this.database.length);
-        }
+        this.current += 1;
       }    
     },
     started() {
       this.state = State.STARTED;
       this.alreadyAsked = [];
-      this.current = Math.floor(Math.random() * this.database.length);
+      this.current = 0;
       this.score = 0;
     }
   },
