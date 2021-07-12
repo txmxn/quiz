@@ -1,6 +1,6 @@
 <template>
     <div id="welcome-body">
-      <h1>Willkommen im Quiz!</h1>
+      <h1>{{ welcomeMessage }}</h1>
       <img src="@/assets/timons-quiz.svg" width="500">
   </div>
 </template>
@@ -8,6 +8,18 @@
 <script>
 export default {
   name: 'welcome-body',
+  data() {
+    return {
+      welcomeMessage: "Willkommen beim Quiz!",
+    }
+  },
+  created() {
+    fetch("http://localhost:8081/")
+    .then(response => response.json())
+    .then(json => {
+      this.welcomeMessage = json.message;
+    });
+  }
 } 
 </script>
 

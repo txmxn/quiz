@@ -18,7 +18,6 @@ import Question from "@/components/question.vue"
 import Finish from "@/components/finish.vue"
 import Score from "@/components/score.vue"
 import FootBar from "@/components/footbar.vue"
-import database from "@/database.js";
 import { State } from "@/utils.js";
 
 export default {
@@ -36,14 +35,18 @@ export default {
     return {
       state: State.WELCOME,
       states: State, 
-      database: database,
+      database: [],
       current: 0,
       alreadyAsked: [],
       score: 0,
     }
   },
   created() {
- //   this.started();
+    fetch("http://localhost:8081/quiz")
+    .then(response => response.json())
+    .then(json => {
+      this.database = json.daten;
+    });
   },
   methods: {
     correctAnswer(points) {
