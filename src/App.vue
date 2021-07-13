@@ -41,22 +41,20 @@ export default {
       score: 0,
     }
   },
-  created() {
-    fetch("http://localhost:8081/quiz")
-    .then(response => response.json())
-    .then(json => {
-      this.database = json.daten;
-    });
-  },
   methods: {
-    correctAnswer(points) {
-      this.score += points;
+    correctAnswer(score) {
+      this.score = score;
       this.alreadyAsked.push(this.current);      
       if (this.alreadyAsked.length < this.database.length) {
         this.current += 1;
       }    
     },
     started() {
+      fetch("http://localhost:8081/quiz", { method: "get", credentials: 'include' })
+      .then(response => response.json())
+      .then(json => {
+        this.database = json.daten;
+      });
       this.state = State.STARTED;
       this.alreadyAsked = [];
       this.current = 0;

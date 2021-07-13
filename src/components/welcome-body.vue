@@ -14,7 +14,7 @@ export default {
     }
   },
   created() {
-    fetch("http://localhost:8081/")
+    fetch("http://localhost:8081/",  { method: "get", credentials: 'include', headers:{'content-type': 'application/json'}})
     .then(response => response.json())
     .then(json => {
       this.welcomeMessage = json.message;

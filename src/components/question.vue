@@ -25,15 +25,7 @@ export default {
       right: null
     }
   },
-  created() {
-    this.getAnswer();
-  },
-
   methods: {
-    getAnswer() {
-
-    },
-
     checkAnswer(index) {
       fetch("http://localhost:8081/questions", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
         frage: this.element.question,
@@ -42,9 +34,8 @@ export default {
       .then(response => response.json())
       .then(json => {
       if (json.correct) {
-        console.log("RICHTIG")
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", json.points);
+        this.$emit("correct", json.score);
         this.point = json.questionPoints;
         this.checked = [];
       }
