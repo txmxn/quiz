@@ -35,7 +35,7 @@ export default {
     },
 
     checkAnswer(index) {
-      fetch("http://localhost:8081/questions", { method: "post", headers:{'content-type': 'application/json'}, body: JSON.stringify({
+      fetch("http://localhost:8081/questions", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
         frage: this.element.question,
         antwort: this.element.answers[index],
       })})
@@ -44,18 +44,15 @@ export default {
       if (json.correct) {
         console.log("RICHTIG")
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", this.point);
-        this.point = 3;
+        this.$emit("correct", json.points);
+        this.point = json.questionPoints;
         this.checked = [];
       }
       else {
         this.check = "Falsche Antwort";
-        if (this.point > 0 && !this.checked.includes(index)) {
-          this.checked.push(index);
-          this.point -= 1;
-        }
+        this.point = json.questionPoints;
+        this.checked.push(index);
       }
-        
       });
 
     }
