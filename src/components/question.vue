@@ -22,11 +22,27 @@ export default {
       check: "Bitte Antwort wählen",
       point: 3,
       checked: [],
+      right: null
     }
   },
+  created() {
+    this.getAnswer();
+  },
+
   methods: {
+    getAnswer() {
+
+    },
+
     checkAnswer(index) {
-      if (index == this.element.right) {
+      fetch("http://localhost:8081/questions", { method: "post", headers:{'content-type': 'application/json'}, body: JSON.stringify({
+        frage: this.element.question,
+        antwort: this.element.answers[index],
+      })})
+      .then(response => response.json())
+      .then(json => {
+      if (json.correct) {
+        console.log("RICHTIG")
         this.check = "Bitte Antwort wählen";
         this.$emit("correct", this.point);
         this.point = 3;
@@ -34,12 +50,14 @@ export default {
       }
       else {
         this.check = "Falsche Antwort";
-        
         if (this.point > 0 && !this.checked.includes(index)) {
           this.checked.push(index);
           this.point -= 1;
         }
       }
+        
+      });
+
     }
   }
 }
