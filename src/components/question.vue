@@ -35,7 +35,7 @@ export default {
       .then(json => {
       if (json.correct) {
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", json.score);
+        this.$emit("correct", { score: json.score, highscore: json.highscore });
         this.point = json.questionPoints;
         this.checked = [];
       }

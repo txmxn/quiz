@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Heading @started="started()" @aborted="state = states.WELCOME" @help="state = states.HELP" :state="state"/>
-    <WelcomeBody v-if="state == states.WELCOME"/>
+    <Heading @started="started()" @aborted="abort()" @help="state = states.HELP" :state="state"/>
+    <WelcomeBody v-if="state == states.WELCOME" :highscore="highscore" :welcomeMessage="welcomeMessage" />
     <Help v-if="state == states.HELP"/>
     <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
-    <Finish :score="score" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
+    <Finish :score="score" :highscore="highscore" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
     <Score :score="score" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
     <FootBar />
   </div> 
@@ -39,11 +39,17 @@ export default {
       current: 0,
       alreadyAsked: [],
       score: 0,
+      highscore: 0,
+      welcomeMessage: "Welcome",
     }
   },
+  created() {
+    this.abort();
+  },
   methods: {
-    correctAnswer(score) {
+    correctAnswer({ score, highscore }) {
       this.score = score;
+      this.highscore = highscore;
       this.alreadyAsked.push(this.current);      
       if (this.alreadyAsked.length < this.database.length) {
         this.current += 1;
@@ -59,6 +65,15 @@ export default {
       this.alreadyAsked = [];
       this.current = 0;
       this.score = 0;
+    },
+    abort() {
+      this.state = this.states.WELCOME
+      fetch("http://localhost:8081/",  { method: "get", credentials: 'include', headers:{'content-type': 'application/json'}})
+      .then(response => response.json())
+      .then(json => {
+        this.welcomeMessage = json.message;
+        this.highscore = json.highscore;
+      });
     }
   },
 }
