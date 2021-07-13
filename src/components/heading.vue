@@ -3,7 +3,8 @@
         <ul id="header" >
           <li class="header-elements" v-if="state == states.WELCOME" @click="$emit('started')">START</li>
           <li class="header-elements" v-else @click="$emit('aborted')">ZURÜCK</li>
-          <li class="header-elements logo"><img src="@/assets/icon.svg" width="35px"></li>
+          <li class="header-elements user" v-if="state == states.WELCOME">Benutzername: <input v-model="username" @blur="$emit('changeuser', username)"/></li>
+          <li class="header-elements logo" v-else><img src="@/assets/icon.svg" width="35px"></li>
           <li class="header-elements" @click="$emit('help')">HILFE</li>
         </ul>
     </div>
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       states: State,
+      username: "unknown",
     }
   },
 }
@@ -42,7 +44,9 @@ export default {
   border-style: solid;
   cursor: pointer;
 }
-
+.header-elements.user {
+  border-style: none;
+}
 .header-elements.logo {
   margin: 0%;
   height: 100%;

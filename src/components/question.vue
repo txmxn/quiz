@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'question',
-  props: ["element", "questionNumber", "allQuestions"],
+  props: ["element", "questionNumber", "allQuestions", "username"],
   data() {
     return {
       labels: ["A:", "B:", "C:", "D:",],
@@ -30,12 +30,13 @@ export default {
       fetch("http://localhost:8081/questions", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
         frage: this.element.question,
         antwort: this.element.answers[index],
+        username: this.username,
       })})
       .then(response => response.json())
       .then(json => {
       if (json.correct) {
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", { score: json.score, highscore: json.highscore });
+        this.$emit("correct", { score: json.score, highscore: json.highscore, highscoreuser: json.highscoreuser });
         this.point = json.questionPoints;
         this.checked = [];
       }

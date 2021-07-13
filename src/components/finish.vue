@@ -2,14 +2,14 @@
     <div class="finish">
       <p>Das Quiz ist zu Ende...</p>
       <div class="auswertung">{{ score }} von {{ allQuestions * 3 }} Punkten erreicht.</div>
-      <div class="highscore">Der aktuelle Highscore lautet {{ highscore }}.</div>
+      <div class="highscore">Der aktuelle Highscore von <strong>{{ highscoreuser }}</strong> lautet {{ highscore }}.</div>     
     </div>
 </template>
 
 <script>
 export default {
   name: 'finish',
-  props: ['score', 'highscore', 'allQuestions']
+  props: ['score', 'highscore', 'highscoreuser', 'allQuestions']
 }
 </script>
 

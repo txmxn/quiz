@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Heading @started="started()" @aborted="abort()" @help="state = states.HELP" :state="state"/>
-    <WelcomeBody v-if="state == states.WELCOME" :highscore="highscore" :welcomeMessage="welcomeMessage" />
+    <Heading @started="started()" @aborted="abort()" @help="state = states.HELP" :state="state" @changeuser="changeuser($event)"/>
+    <WelcomeBody v-if="state == states.WELCOME" :highscore="highscore" :highscoreuser="highscoreuser" :welcomeMessage="welcomeMessage" />
     <Help v-if="state == states.HELP"/>
-    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
-    <Finish :score="score" :highscore="highscore" :allQuestions="database.length" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
+    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == states.STARTED" :username="username"/>
+    <Finish :score="score" :highscore="highscore" :allQuestions="database.length" :highscoreuser="highscoreuser" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
     <Score :score="score" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
     <FootBar />
   </div> 
@@ -40,16 +40,22 @@ export default {
       alreadyAsked: [],
       score: 0,
       highscore: 0,
+      highscoreuser: "unknown",
       welcomeMessage: "Welcome",
+      username: "unknown",
     }
   },
   created() {
     this.abort();
   },
   methods: {
-    correctAnswer({ score, highscore }) {
+    changeuser(user) {
+      this.username = user;
+    },
+    correctAnswer({ score, highscore, highscoreuser }) {
       this.score = score;
       this.highscore = highscore;
+      this.highscoreuser = highscoreuser;
       this.alreadyAsked.push(this.current);      
       if (this.alreadyAsked.length < this.database.length) {
         this.current += 1;

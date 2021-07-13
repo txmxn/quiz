@@ -5,6 +5,8 @@
             <dt>START</dt><dd>Startet das Quiz</dd>
             <dt>ZURÜCK</dt><dd>Beendet das Quiz oder verlässt die Hilfe Ansicht</dd>
             <dt>Punktesystem</dt><dd>Beantwortet man eine Frage beim ersten Versuch richtig bekommt man 3 Punkte. Bei jeder falschen Antwort werden die zu erreichenden Punkte eins weniger.</dd>
+            <dt>Highscore</dt><dd>Der Highscore zeigt immer die höchste Punktzahl die erspielt worden ist und den User der sie erspielt hat</dd>
+            <dt>Usernames</dt><dd>Bevor Beginn des Quiz trägt man seinen Username oben in die Mitte ein, damit der Highscore auch zugeordnet werden kann</dd>
         </dl>
     </div>
 </template>
