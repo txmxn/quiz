@@ -27,16 +27,16 @@ export default {
   },
   methods: {
     checkAnswer(index) {
-      fetch("http://localhost:8081/questions", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
-        frage: this.element.question,
-        antwort: this.element.answers[index],
+      fetch("http://localhost:8081/solve", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
+        question: this.element.question,
+        answer: this.element.answers[index],
         username: this.username,
       })})
       .then(response => response.json())
       .then(json => {
       if (json.correct) {
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", { score: json.score, highscore: json.highscore, highscoreuser: json.highscoreuser });
+        this.$emit("correct", { score: json.currentScore, highscore: json.highScore, highscoreuser: json.highScoreUser });
         this.point = json.questionPoints;
         this.checked = [];
       }

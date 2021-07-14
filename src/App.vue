@@ -65,7 +65,7 @@ export default {
       fetch("http://localhost:8081/quiz", { method: "get", credentials: 'include' })
       .then(response => response.json())
       .then(json => {
-        this.database = json.daten;
+        this.database = json.questions;
       });
       this.state = State.STARTED;
       this.alreadyAsked = [];
