@@ -1,6 +1,6 @@
 <template>
-    <div id="body-part">
-      <div id="question">{{ element.question }}</div>
+    <div id="question-body">
+      <div class="question">{{ element.question }}</div>
     
       <div class="answers">
         <div class="answer" :class="{'wrong': checked.includes(index)}" v-for="(answer, index) in element.answers" :key="index" @click="checkAnswer(index)">{{ labels[index] }} {{ answer }}</div>
@@ -9,13 +9,14 @@
       <div class="result">{{ check }}. Erreichbare Punkte: {{ point }}</div>
       <div class="questionCounter">Frage {{ questionNumber + 1 }}/{{ allQuestions }}</div>
 
+      <div class="score">Score:  {{ score }}</div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'question',
-  props: ["element", "questionNumber", "allQuestions", "username"],
+  name: 'question-body',
+  props: ["element", "questionNumber", "allQuestions", "username", "score"],
   data() {
     return {
       labels: ["A:", "B:", "C:", "D:",],
@@ -36,7 +37,7 @@ export default {
       .then(json => {
       if (json.correct) {
         this.check = "Bitte Antwort wählen";
-        this.$emit("correct", { score: json.currentScore, highscore: json.highScore, highscoreuser: json.highScoreUser });
+        this.$emit("correct", { score: json.currentScore, highScore: json.highScore, highScoreUser: json.highScoreUser });
         this.point = json.questionPoints;
         this.checked = [];
       }
@@ -53,14 +54,14 @@ export default {
 </script>
 
 <style>
-#body-part {
+#question-body {
   margin: 100px auto 20px auto;
   width: 800px;
   padding-bottom: 25px;
   background-color: blueviolet;
 }
 
-#question {
+.question {
   background-color: honeydew;
   margin: 10px auto 10px auto;
   text-align: center;
@@ -101,4 +102,8 @@ export default {
   font-size: x-large;
 }
 
+.score {
+    text-align: center;
+    font-size: x-large;
+}
 </style>

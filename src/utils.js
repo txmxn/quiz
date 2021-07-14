@@ -3,4 +3,3 @@ export const State = {
   HELP: 2,
   WELCOME: 3,
 }
-   

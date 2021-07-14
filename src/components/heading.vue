@@ -1,11 +1,11 @@
 <template>
     <div>
-        <ul id="header" >
-          <li class="header-elements" v-if="state == states.WELCOME" @click="$emit('started')">START</li>
-          <li class="header-elements" v-else @click="$emit('aborted')">ZURÜCK</li>
-          <li class="header-elements user" v-if="state == states.WELCOME">Benutzername: <input v-model="username" @blur="$emit('changeuser', username)"/></li>
-          <li class="header-elements logo" v-else><img src="@/assets/icon.svg" width="35px"></li>
-          <li class="header-elements" @click="$emit('help')">HILFE</li>
+        <ul id="heading" >
+          <li class="heading-elements" v-if="state == states.WELCOME" @click="$emit('started')">START</li>
+          <li class="heading-elements" v-else @click="$emit('aborted')">ZURÜCK</li>
+          <li class="heading-elements user" v-if="state == states.WELCOME">Benutzername: <input v-model="username" @blur="$emit('changeuser', username)"/></li>
+          <li class="heading-elements logo" v-else><img src="@/assets/icon.svg" width="35px"></li>
+          <li class="heading-elements" @click="$emit('help')">HILFE</li>
         </ul>
     </div>
 </template>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style>
-#header {
+#heading {
   margin: 0;
   padding: 10px;
   text-align: center;
@@ -34,21 +34,23 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
   font-size: x-large;
 }
 
-.header-elements {
+.heading-elements {
   margin: 0%;
   height: 100%;
   padding: 10px;
   border-style: solid;
   cursor: pointer;
 }
-.header-elements.user {
+.heading-elements.user {
   border-style: none;
 }
-.header-elements.logo {
+.heading-elements.logo {
   margin: 0%;
+  padding: 0%;
   height: 100%;
   border-style: none;
   cursor: initial;

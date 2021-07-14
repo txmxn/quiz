@@ -1,22 +1,20 @@
 <template>
   <div id="app">
-    <Heading @started="started()" @aborted="abort()" @help="state = states.HELP" :state="state" @changeuser="changeuser($event)"/>
-    <WelcomeBody v-if="state == states.WELCOME" :highscore="highscore" :highscoreuser="highscoreuser" :welcomeMessage="welcomeMessage" />
-    <Help v-if="state == states.HELP"/>
-    <Question :element="database[current]" :questionNumber="alreadyAsked.length" :allQuestions="database.length" @correct="correctAnswer" v-if="alreadyAsked.length < database.length && state == states.STARTED" :username="username"/>
-    <Finish :score="score" :highscore="highscore" :allQuestions="database.length" :highscoreuser="highscoreuser" v-if="alreadyAsked.length == database.length && state == states.STARTED"/>
-    <Score :score="score" v-if="alreadyAsked.length < database.length && state == states.STARTED"/>
+    <Heading :state="state" @started="started()" @aborted="abort()" @help="help()" @changeuser="changeuser($event)"/>
+    <WelcomeBody v-if="isWelcomeState" :highScore="highScore" :highScoreUser="highScoreUser" :welcomeMessage="welcomeMessage" />
+    <QuestionBody v-if="isStartedState && hasMoreQuestions" :score="score" :element="quiz[current]" :questionNumber="alreadyAsked.length" :allQuestions="quiz.length" :username="username" @correct="correctAnswer($event)"/>
+    <FinishBody   v-if="isStartedState && !hasMoreQuestions" :score="score" :highScore="highScore" :allQuestions="quiz.length" :highScoreUser="highScoreUser"/>
+    <HelpBody v-if="isHelpState"/>
     <FootBar />
   </div> 
 </template>
 
 <script>
 import Heading from "@/components/heading.vue"
-import Help from "@/components/help.vue"
 import WelcomeBody from "@/components/welcome-body.vue"
-import Question from "@/components/question.vue"
-import Finish from "@/components/finish.vue"
-import Score from "@/components/score.vue"
+import QuestionBody from "@/components/question-body.vue"
+import FinishBody from "@/components/finish-body.vue"
+import HelpBody from "@/components/help-body.vue"
 import FootBar from "@/components/footbar.vue"
 import { State } from "@/utils.js";
 
@@ -24,40 +22,53 @@ export default {
   name: 'App',
   components: {
     Heading,
-    Help,
+    HelpBody,
     WelcomeBody,
-    Question,
-    Score,
-    Finish,
+    QuestionBody,
+    FinishBody,
     FootBar
   },
   data() {
     return {
       state: State.WELCOME,
       states: State, 
-      database: [],
+      quiz: [],
       current: 0,
       alreadyAsked: [],
       score: 0,
-      highscore: 0,
-      highscoreuser: "unknown",
+      highScore: 0,
+      highScoreUser: "unknown",
       welcomeMessage: "Welcome",
       username: "unknown",
     }
   },
   created() {
-    this.abort();
+   this.abort();
+  },
+  computed: {
+    isWelcomeState() {
+      return this.state == this.states.WELCOME;
+    },
+    isStartedState() {
+      return this.state == this.states.STARTED;
+    },
+    hasMoreQuestions() {
+      return this.alreadyAsked.length < this.quiz.length;
+    },
+    isHelpState() {
+      return this.state == this.states.HELP;
+    }
   },
   methods: {
     changeuser(user) {
       this.username = user;
     },
-    correctAnswer({ score, highscore, highscoreuser }) {
+    correctAnswer({ score, highScore, highScoreUser }) {
       this.score = score;
-      this.highscore = highscore;
-      this.highscoreuser = highscoreuser;
+      this.highScore = highScore;
+      this.highScoreUser = highScoreUser;
       this.alreadyAsked.push(this.current);      
-      if (this.alreadyAsked.length < this.database.length) {
+      if (this.alreadyAsked.length < this.quiz.length) {
         this.current += 1;
       }    
     },
@@ -65,7 +76,7 @@ export default {
       fetch("http://localhost:8081/quiz", { method: "get", credentials: 'include' })
       .then(response => response.json())
       .then(json => {
-        this.database = json.questions;
+        this.quiz = json.questions;
       });
       this.state = State.STARTED;
       this.alreadyAsked = [];
@@ -78,8 +89,11 @@ export default {
       .then(response => response.json())
       .then(json => {
         this.welcomeMessage = json.message;
-        this.highscore = json.highScore;
+        this.highScore = json.highScore;
       });
+    },
+    help() {
+      this.state = this.states.HELP;
     }
   },
 }
@@ -95,6 +109,6 @@ body {
 #app {
   margin: 0%;
   display: grid;
-  grid-template-rows: 50px auto 50px;
+  grid-template-rows: 74px auto 50px;
 }
 </style>

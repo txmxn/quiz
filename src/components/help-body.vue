@@ -25,8 +25,10 @@ export default {
     margin-top: 30px;
     margin-bottom: 20px;
 }
+#help-body dt {
+    font-weight: bolder;
+}
 #help-body dd {
     margin-bottom: 35px;
 }
-
 </style>
