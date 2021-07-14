@@ -78,7 +78,7 @@ export default {
       .then(response => response.json())
       .then(json => {
         this.welcomeMessage = json.message;
-        this.highscore = json.highscore;
+        this.highscore = json.highScore;
       });
     }
   },
