@@ -1,39 +1,26 @@
-# quiz
+# Projektbeschreibung
+Frontend für ein Quiz in [Vue.js](https://vuejs.org/) auf Basis von [Node.js](https://nodejs.org/en/).
 
-## Node.js installation
-[Node.js installieren](https://nodejs.org/dist/v14.17.3/node-v14.17.3-x64.msi)
+# Vorbereitungen
+Folgende Tools werden benötigt:
+* [Node.js 14.17.1](https://nodejs.org/en/)
+* [Docker 20.10.7 (Inklusive Docker-Compose)](https://www.docker.com/products/docker-desktop)
+* Optional Vue CLI installieren: *npm install -g @vue/cli*
 
-Optional Vue CLI installieren:
-```
-npm install -g @vue/cli
-```
+# Build
+Die Datei *build.bat* im Basis-Verzeichnis ausführen.
 
-## Download repository
-Open Terminal run
-```
-git clone https://github.com/txmxn/quiz
-```
+Dabei wird der Quellcode kompiliert, die Vue runtime vorbereitet und anschließend die Anwendung in einem Docker-Container verpackt.
+Das Tag des Containers lautet *tkayser/quiz-frontend:latest*.
 
-### Project setup
-Go to the project folder in this case 'quiz' and run in CMD
-```
-npm install
-```
+# IDE
+Das Projekt wird durch *npm install* initialisiert.
+Die Anwendung wird über den Befehl *npm run serve* gestartet.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# Docker-Compose
+Um die Quiz-Anwendung im Ganzen zu starten, benötigt man die *docker-compose.yml* Datei.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Starten: docker-compose up -d
+Beenden: docker-compose down
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Zugriff über [localhost](http://localhost).
