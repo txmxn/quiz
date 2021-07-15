@@ -1,0 +1,16 @@
+version: "3.6"
+services:
+  quiz-frontend:
+    image: tkayser/quiz-frontend:latest
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - quiz-backend
+  quiz-backend:
+    image: tkayser/quiz-backend:1.0.0-SNAPSHOT
+    restart: always
+    environment:
+      SERVER_TYPE: default
+      SERVER_PORT: 8081
+      MAX_QUESTIONS: 10
