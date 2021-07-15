@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     checkAnswer(index) {
-      fetch("http://localhost:8081/solve", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
+      fetch(process.env.VUE_APP_QUIZ_BACKEND_URL + "/solve", { method: "post", credentials: 'include', headers:{'content-type': 'application/json'}, body: JSON.stringify({
         question: this.element.question,
         answer: this.element.answers[index],
         username: this.username,

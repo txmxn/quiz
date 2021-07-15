@@ -73,7 +73,7 @@ export default {
       }    
     },
     started() {
-      fetch("http://localhost:8081/quiz", { method: "get", credentials: 'include' })
+      fetch(process.env.VUE_APP_QUIZ_BACKEND_URL + "/quiz", { method: "get", credentials: 'include' })
       .then(response => response.json())
       .then(json => {
         this.quiz = json.questions;
@@ -85,11 +85,12 @@ export default {
     },
     abort() {
       this.state = this.states.WELCOME
-      fetch("http://localhost:8081/",  { method: "get", credentials: 'include', headers:{'content-type': 'application/json'}})
+      fetch(process.env.VUE_APP_QUIZ_BACKEND_URL + "/",  { method: "get", credentials: 'include', headers:{'content-type': 'application/json'}})
       .then(response => response.json())
       .then(json => {
         this.welcomeMessage = json.message;
         this.highScore = json.highScore;
+        this.highScoreUser = json.highScoreUser;
       });
     },
     help() {
