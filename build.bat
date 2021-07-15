@@ -8,8 +8,8 @@ call npm -version
 echo
 echo Running command:
 echo npm run build
-echo docker build --tag tkayer/quiz-frontend:latest .
+echo docker build --tag tkayser/quiz-frontend:latest .
 echo
 echo Executing:
 call npm run build
-call docker build --tag tkayer/quiz-frontend:latest .
+call docker build --tag tkayser/quiz-frontend:latest .
